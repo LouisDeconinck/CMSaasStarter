@@ -30,8 +30,6 @@ export const actions = {
 
     const formData = await request.formData()
     const fullName = formData.get("fullName") as string
-    const companyName = formData.get("companyName") as string
-    const website = formData.get("website") as string
 
     let validationError
     const fieldMaxTextLength = 50
@@ -43,29 +41,11 @@ export const actions = {
       validationError = `Name must be less than ${fieldMaxTextLength} characters`
       errorFields.push("fullName")
     }
-    if (!companyName) {
-      validationError =
-        "Company name is required. If this is a hobby project or personal app, please put your name."
-      errorFields.push("companyName")
-    } else if (companyName.length > fieldMaxTextLength) {
-      validationError = `Company name must be less than ${fieldMaxTextLength} characters`
-      errorFields.push("companyName")
-    }
-    if (!website) {
-      validationError =
-        "Company website is required. An app store URL is a good alternative if you don't have a website."
-      errorFields.push("website")
-    } else if (website.length > fieldMaxTextLength) {
-      validationError = `Company website must be less than ${fieldMaxTextLength} characters`
-      errorFields.push("website")
-    }
     if (validationError) {
       return fail(400, {
         errorMessage: validationError,
         errorFields,
         fullName,
-        companyName,
-        website,
       })
     }
 
@@ -81,8 +61,6 @@ export const actions = {
       .upsert({
         id: user.id,
         full_name: fullName,
-        company_name: companyName,
-        website: website,
         updated_at: new Date(),
         unsubscribed: priorProfile?.unsubscribed ?? false,
       })
@@ -92,15 +70,11 @@ export const actions = {
       return fail(500, {
         errorMessage: "Unknown error. If this persists please contact us.",
         fullName,
-        companyName,
-        website,
       })
     }
 
     return {
       fullName,
-      companyName,
-      website,
     }
   },
   signout: async ({ locals: { supabase, safeGetSession } }) => {
