@@ -20,6 +20,7 @@ export const getOrCreateCustomerId = async ({
     .single()
 
   if (error && error.code != "PGRST116") {
+    console.log("Error with supabaseServiceRole 1 query:", { error, userId: user.id })
     // PGRST116 == no rows
     return { error: error }
   }
@@ -35,6 +36,7 @@ export const getOrCreateCustomerId = async ({
     .eq("id", user.id)
     .single()
   if (profileError) {
+    console.log("Error with supabaseServiceRole 2 query:", { error: profileError, userId: user.id })
     return { error: profileError }
   }
 

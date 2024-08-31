@@ -61,16 +61,22 @@ export const load = async ({ fetch, data, depends, url }) => {
   const profile: Database["public"]["Tables"]["profiles"]["Row"] | null =
     data.profile
 
-  const createProfilePath = "/account/create_profile"
-  const signOutPath = "/account/sign_out"
-  if (
-    profile &&
-    !_hasFullProfile(profile) &&
-    url.pathname !== createProfilePath &&
-    url.pathname !== signOutPath
-  ) {
-    redirect(303, createProfilePath)
-  }
+//     const { data: stripeCustomer, error: stripeError } = await supabase
+//     .from('stripe_customers')
+//     .select('stripe_customer_id')
+//     .eq('user_id', user.id)
+//     .single()
+
+//     console.log("Stripe query result:", { stripeCustomer, stripeError, userId: user.id })
+
+//   const signOutPath = "/account/sign_out"
+//   const SelectPlanPath = "/account/select_plan"
+
+//   if (!stripeCustomer?.stripe_customer_id && 
+//     url.pathname !== SelectPlanPath &&
+//     url.pathname !== signOutPath) {
+//   redirect(303, SelectPlanPath)
+// }
 
   return {
     supabase,
@@ -79,23 +85,4 @@ export const load = async ({ fetch, data, depends, url }) => {
     user,
     amr: aal?.currentAuthenticationMethods,
   }
-}
-
-export const _hasFullProfile = (
-  profile: Database["public"]["Tables"]["profiles"]["Row"] | null,
-) => {
-  if (!profile) {
-    return false
-  }
-  if (!profile.full_name) {
-    return false
-  }
-  if (!profile.company_name) {
-    return false
-  }
-  if (!profile.website) {
-    return false
-  }
-
-  return true
 }
