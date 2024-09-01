@@ -38,7 +38,7 @@ export const load: PageServerLoad = async ({
   })
   if (primarySubscription) {
     // User already has plan, we shouldn't let them buy another
-    redirect(303, "/account/billing")
+    redirect(303, "/account")
   }
 
   let checkoutUrl
@@ -53,7 +53,7 @@ export const load: PageServerLoad = async ({
       customer: customerId,
       mode: "subscription",
       success_url: `${url.origin}/account`,
-      cancel_url: `${url.origin}/account/billing`,
+      cancel_url: `${url.origin}/account/`,
     })
     checkoutUrl = stripeSession.url
   } catch (e) {

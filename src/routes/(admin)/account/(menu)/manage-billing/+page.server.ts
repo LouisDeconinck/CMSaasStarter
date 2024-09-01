@@ -1,7 +1,7 @@
 import { PRIVATE_STRIPE_API_KEY } from "$env/static/private"
 import { error, redirect } from "@sveltejs/kit"
 import Stripe from "stripe"
-import { getOrCreateCustomerId } from "../../../subscription_helpers.server"
+import { getOrCreateCustomerId } from "../../subscription_helpers.server"
 import type { PageServerLoad } from "./$types"
 const stripe = new Stripe(PRIVATE_STRIPE_API_KEY, { apiVersion: "2023-08-16" })
 
@@ -28,12 +28,12 @@ export const load: PageServerLoad = async ({
   try {
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: customerId,
-      return_url: `${url.origin}/account/billing`,
+      return_url: `${url.origin}/account`,
     })
     portalLink = portalSession?.url
   } catch (e) {
     error(500, "Unknown error (PSE). If issue persists, please contact us.")
   }
 
-  redirect(303, portalLink ?? "/account/billing")
+  redirect(303, portalLink ?? "/account")
 }
