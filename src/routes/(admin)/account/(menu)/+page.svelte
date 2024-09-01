@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getContext } from "svelte"
   import type { Writable } from "svelte/store"
-  import SettingsModule from "./settings/settings_module.svelte"
+  import SettingsModule from "./settings_module.svelte"
   import PricingModule from "../../../(marketing)/pricing/pricing_module.svelte"
   import {
     pricingPlans,
@@ -70,5 +70,5 @@
   dangerous={true}
   fields={[]}
   editButtonTitle="Delete Account"
-  editLink="/account/settings/delete_account"
+  editLink="/account/delete_account"
 />

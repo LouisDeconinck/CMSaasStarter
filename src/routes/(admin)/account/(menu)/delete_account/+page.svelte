@@ -4,7 +4,7 @@
   import SettingsModule from "../settings_module.svelte"
 
   let adminSection: Writable<string> = getContext("adminSection")
-  adminSection.set("settings")
+  adminSection.set("home")
 
   export let data
   let { session } = data

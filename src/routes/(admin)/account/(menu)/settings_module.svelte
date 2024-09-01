@@ -149,9 +149,9 @@
         <div class="text-l font-bold">{successTitle}</div>
         <div class="text-base">{successBody}</div>
       </div>
-      <a href="/account/settings">
+      <a href="/account">
         <button class="btn btn-outline btn-sm mt-3 min-w-[145px]">
-          Return to Settings
+          Return to Account
         </button>
       </a>
     {/if}
